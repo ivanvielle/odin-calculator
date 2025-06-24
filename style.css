@@ -20,15 +20,24 @@ body {
     padding: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
 }
 
 #container {
     display: flex;
+    gap: 8px;
+}
+
+.btn {
+    padding: 8px;
 }
 
 /* LEFT PANEL */
 #left-panel {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 #input-container {
@@ -39,6 +48,7 @@ body {
 
 #clear-btn-container {
     display: flex;
+    gap: 5px;
 }
 
 .clear-btn {
@@ -47,8 +57,23 @@ body {
     justify-content: center;
 }
 
+#number-btn-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.number-btn {
+    flex-basis: calc(100% / 3);
+}
+
+.number-btn:last-child {
+    flex-basis: 100%;
+}
+
 /* RIGHT PANEL */
 #right-panel {
     display: flex;
     flex-direction: column;
+    width: 20%;
+    gap: 10px;
 }
