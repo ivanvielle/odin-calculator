@@ -15,8 +15,8 @@ body {
 
 #calculator-container {
     border: 1px solid black;
-    height: 250px;
-    width: 250px;
+    height: 300px;
+    width: 300px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -66,6 +66,7 @@ body {
 }
 
 .number-btn {
+    margin: 3px 0;
     flex-basis: calc(100% / 3);
 }
 
@@ -78,5 +79,5 @@ body {
     display: flex;
     flex-direction: column;
     width: 20%;
-    gap: 10px;
+    gap: 7px;
 }

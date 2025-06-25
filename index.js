@@ -1,16 +1,17 @@
 console.log("Hello World");
 
-// GLOBAL VARIABLES
+/*
+    GLOBAL VARIABLES
+*/
 let inputContainer = document.querySelector("#input-container");
-let clearBtn = document.querySelectorAll("button.clear-btn");
-let numberBtn = document.querySelectorAll("button.number-btn");
-let operatorBtn = document.querySelectorAll("button.operator-btn");
+let clearBtns = document.querySelectorAll("button.clear-btn");
+let numberBtns = document.querySelectorAll("button.number-btn");
+let operatorBtns = document.querySelectorAll("button.operator-btn");
+let equalBtn = document.querySelector("button#equal-btn");
 
-let operation = {
-    operator: null,
-    num1: null,
-    num2: null,
-};
+let operator;
+let num1;
+let num2;
 
 /*
     Calculator contains functions for all basic math operators
@@ -19,70 +20,122 @@ let operation = {
     Multiply,
     Divide
 */
-
 function add(num1, num2) {
-    let result = num1 + num2;
-
-    return result;
+    return num1 + num2;
 }
 
 function subtract(num1, num2) {
-    let result = num1 - num2;
-
-    return result;
+    return num1 - num2;
 }
 
 function multiply(num1, num2) {
-    let result = num1 * num2;
-
-    return result;
+    return num1 * num2;
 }
 
 function divide(num1, num2) {
-    let result = num1 / num2;
+    if (num2 === 0) {
+        inputContainer.textContent = "Invalid operation. Cannot divide by zero";
+        return null;
+    }
 
-    return result;
+    return num1 / num2;
 }
 
 /*
     Operate function to do math computations
 */
-function operate(operation) {
-    switch (operation.operator) {
+function operate() {
+    let result;
+
+    console.log(operator, num1, num2);
+
+    switch (operator) {
         case "+":
-            add(operation.num1, operation.num2);
+            result = add(num1, num2);
+            break;
         case "-":
-            subtract(operation.num1, operation.num2);
+            result = subtract(num1, num2);
+            break;
         case "*":
-            multiply(operation.num1, operation.num2);
+            result = multiply(num1, num2);
+            break;
         case "/":
-            divide(operation.num1, operation.num2);
+            result = divide(num1, num2);
+            break;
         default:
-            null;
+            break;
     }
+
+    inputContainer.textContent = result;
 }
 
 /*
     Reset function clears all inputs
+    Returns operation object to initial state
 */
 function reset() {
     inputContainer.textContent = "";
+    operator = null;
+    num1 = null;
+    num2 = null;
 }
 
-for (let i = 0; i < numberBtn.length; i++) {
-    numberBtn[i].addEventListener("click", function (e) {
-        if (!inputContainer.textContent) {
-            if (Number(e.target.textContent) == 0) {
-                inputContainer.textContent = inputContainer.textContent;
-            } else {
-                inputContainer.textContent = Number(e.target.textContent);
-            }
+/*
+    Display numbers on input div container
+*/
+function displayNumber(e) {
+    let input = Number(e.target.textContent);
+
+    inputContainer.textContent += input;
+
+    if (input === 0) {
+        return;
+    } else {
+        if (!num1) {
+            num1 = inputContainer.textContent;
         } else {
-            inputContainer.textContent += Number(e.target.textContent);
+            num2 = inputContainer.textContent;
         }
-    });
+    }
 }
 
-for (let i = 0; i < clearBtn.length; i++) {
-    clearBtn[i].addEventListener("click", reset);
+/*
+    Choose an operator function
+    then save it to operation object
+*/
+function chooseOperator(e) {
+    operator = e.target.textContent;
+
+    inputContainer.textContent = "";
 }
+
+/*
+    Add event listeners to buttons
+*/
+
+/*
+    number button event listener
+*/
+for (let i = 0; i < numberBtns.length; i++) {
+    numberBtns[i].addEventListener("click", displayNumber);
+}
+
+/*
+    reset button event listener
+*/
+for (let i = 0; i < clearBtns.length; i++) {
+    clearBtns[i].addEventListener("click", reset);
+}
+
+/*
+    operator button event listener
+*/
+for (let i = 0; i < operatorBtns.length; i++) {
+    operatorBtns[i].addEventListener("click", chooseOperator);
+}
+
+/*
+    equal button event listener
+    to invoke operate function
+*/
+equalBtn.addEventListener("click", operate);
