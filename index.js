@@ -47,6 +47,9 @@ function divide(num1, num2) {
 function operate() {
     let result;
 
+    /*
+        num2 assigned before performing math operations
+    */
     if (!num2) {
         num2 = Number(inputContainer.textContent);
     }
@@ -68,6 +71,11 @@ function operate() {
             break;
     }
 
+    /*
+        result will be assigned as num1 value
+        then num2 will be null as preparation for the next
+        operation
+    */
     inputContainer.textContent = result;
     num1 = result;
     num2 = null;
@@ -100,6 +108,9 @@ function displayNumber(e) {
 function chooseOperator(e) {
     operator = e.target.textContent;
 
+    /*
+        num1 initially assigned after choosing an operator
+    */
     if (!num1) {
         num1 = Number(inputContainer.textContent);
     }
