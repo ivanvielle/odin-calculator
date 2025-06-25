@@ -47,7 +47,9 @@ function divide(num1, num2) {
 function operate() {
     let result;
 
-    console.log(operator, num1, num2);
+    if (!num2) {
+        num2 = Number(inputContainer.textContent);
+    }
 
     switch (operator) {
         case "+":
@@ -67,6 +69,8 @@ function operate() {
     }
 
     inputContainer.textContent = result;
+    num1 = result;
+    num2 = null;
 }
 
 /*
@@ -87,16 +91,6 @@ function displayNumber(e) {
     let input = Number(e.target.textContent);
 
     inputContainer.textContent += input;
-
-    if (input === 0) {
-        return;
-    } else {
-        if (!num1) {
-            num1 = inputContainer.textContent;
-        } else {
-            num2 = inputContainer.textContent;
-        }
-    }
 }
 
 /*
@@ -105,6 +99,10 @@ function displayNumber(e) {
 */
 function chooseOperator(e) {
     operator = e.target.textContent;
+
+    if (!num1) {
+        num1 = Number(inputContainer.textContent);
+    }
 
     inputContainer.textContent = "";
 }
